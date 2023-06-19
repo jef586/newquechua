@@ -17,21 +17,11 @@
         rel="noopener noreferrer"
         class="text-primary ms-1"
       >Ezequiel Flores</a>
+      
     </span>
     <!-- 👉 Footer: right content -->
-    <!-- <span class="d-md-flex gap-x-4 text-primary d-none">
-      <a
-        href="https://themeselection.com/license/"
-        target="noopener noreferrer"
-      >License</a>
-      <a
-        href="https://themeselection.com/"
-        target="noopener noreferrer"
-      >More Themes</a>
-      <a
-        href="https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/documentation/"
-        target="noopener noreferrer"
-      >Documentation</a>
-    </span> -->
+    <span class="d-md-flex gap-x-4 text-primary d-none">
+      <a href="https://pixabay.com/es/" class="text-align-right">Photos provided by Pixabay</a>
+    </span>
   </div>
 </template>

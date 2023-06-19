@@ -2,20 +2,20 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-// import { WordStore } from "./store/index"
+// import { wordStore } from "@/store/index"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  projectId: process.env.projectId,
-  storageBucket: process.env.storageBucket,
-  messagingSenderId: process.env.measurementId,
-  appId: process.env.appId,
-  measurementId: process.env.measurementId
+  apiKey: "AIzaSyBAOjuGGNB8UH7A345nE1JSkNRmAqn3BYU",
+  authDomain: "diccionario-quechua-es.firebaseapp.com",
+  projectId: "diccionario-quechua-es",
+  storageBucket: "diccionario-quechua-es.appspot.com",
+  messagingSenderId: "358418614116",
+  appId: "1:358418614116:web:8e9005192c45660e945c71",
+  measurementId: "G-8PV2GBMJ1N"
 };
 
 // Initialize Firebase
@@ -28,8 +28,11 @@ export const getAll = async ()=> {
       console.log(`${doc.id} => ${doc.data().Quechua}`);
     });
     const pedidosList = querySnapshot.docs.map(doc => doc.data());
+    // const words = wordStore()
+    // words.word = pedidosList
   //   PedidoStore.data.pedido = pedidosList
     // WordStore.methods.addnewdata(pedidosList)
+    
     console.log(pedidosList);
     return pedidosList;
     
