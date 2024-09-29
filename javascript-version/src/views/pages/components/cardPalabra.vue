@@ -47,35 +47,43 @@ const seleccionarImagenAleatoria = () => {
 };
 
 const buscar = async () => {
-  console.log(x);
-  const list = useWordStore();
-  const listWord= list.word
-  console.log("list word", listWord)
- 
-  for (let element of  listWord) {
-    var x = Math.floor(Math.random() * 520);
-    quechua.value = element[x].Quechua;
-    espanol.value = element[x].Español;
-    console.log(quechua.value);
-    console.log(espanol.value);
+  const store = useWordStore(); // Asegúrate de que esto sincroniza y recupera los datos correctamente
+  const listWord = store.word.flat(); // Aplana la lista si es necesario
+
+  console.log("list word", listWord);
+
+  if (listWord.length > 0) {
+    const randomIndex = Math.floor(Math.random() * listWord.length); // Asegura un índice válido
+    const selectedWord = listWord[randomIndex]; // Accede de manera segura
+
+    if (selectedWord) {
+      quechua.value = selectedWord.Quechua;
+      espanol.value = selectedWord.Español;
+
+      console.log(quechua.value, espanol.value);
+
+      const query = espanol.value.split('; ')[0]; // Asume que quieres buscar la primera palabra del español
+      try {
+        const response = await axios.get(`https://pixabay.com/api/?key=${key}&q=${query}&image_type=photo`);
+        if (response.data.hits.length > 0) {
+          firstPhoto.value = response.data.hits[0].largeImageURL;
+          foto.value = false;
+        } else {
+          throw new Error('No image found');
+        }
+      } catch (error) {
+        console.error('Fetching image failed', error);
+        firstPhoto.value = seleccionarImagenAleatoria(); // Función de respaldo
+        foto.value = true;
+      }
+    } else {
+      console.error('Selected word is undefined');
+    }
+  } else {
+    console.error('Word list is empty or not loaded');
   }
-  const texto = espanol.value
-  const palabras = texto.split('; ');
-  const primeraPalabra = palabras[0];
-  queryWord.value= primeraPalabra
-  const query = queryWord.value;
-  const response = await axios.get('https://pixabay.com/api/?key=' + key + '&q=' + query + '&image_type=photo')
-    .then(response => {
-        foto.value = false;
-        console.log(response.data.hits[0].largeImageURL);
-        firstPhoto.value = response.data.hits[0].largeImageURL;
-    })
-    .catch(error => {
-      firstPhoto.value = seleccionarImagenAleatoria()
-        console.log(error);
-        foto.value= true;
-    });
 };
+
 
 onMounted(() => {
   buscar();
