@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
-// import { wordStore } from "@/store/index"
+import { useWordStore } from "@/store/index";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,10 +28,10 @@ export const getAll = async ()=> {
       console.log(`${doc.id} => ${doc.data().Quechua}`);
     });
     const pedidosList = querySnapshot.docs.map(doc => doc.data());
-    // const words = wordStore()
-    // words.word = pedidosList
-  //   PedidoStore.data.pedido = pedidosList
-    // WordStore.methods.addnewdata(pedidosList)
+    const words = useWordStore()
+    words.word = pedidosList
+    // PedidoStore.data.pedido = pedidosList
+    useWordStore.methods.addnewdata(pedidosList)
     
     console.log(pedidosList);
     return pedidosList;

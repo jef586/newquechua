@@ -1,8 +1,17 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import wordStore from '@/store/index.js';
+import aguayo from '@/assets/images/pages/aguayo.jpg';
+import cactus from '@/assets/images/pages/cactus.webp';
+import camino from '@/assets/images/pages/camino.jpg';
 import cholita from '@/assets/images/pages/cholita.jpg';
+import comida from '@/assets/images/pages/comida.webp';
+import cueca from '@/assets/images/pages/cueca.webp';
+import llama from '@/assets/images/pages/llama.jpg';
+import llamasypasano from '@/assets/images/pages/llamasypasano.webp';
+import trabajocampo from '@/assets/images/pages/trabajocampo.webp';
+import uyuni from '@/assets/images/pages/uyuni.jpg';
+import useWordStore from '@/store/index.js';
 import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
 const word = ref('');
 const translate = ref(null);
@@ -16,10 +25,32 @@ const queryWord = ref(null);
 const firstPhoto = ref(null);
 // const store = useStore();
 
+const imagenes = [
+  uyuni,
+  llama,
+  aguayo,
+  camino,
+  cholita,
+  cactus,
+  comida, 
+  cueca,
+  llamasypasano,
+  trabajocampo
+];
+
+const imagenSeleccionada = ref('');
+
+const seleccionarImagenAleatoria = () => {
+  const indiceAleatorio = Math.floor(Math.random() * imagenes.length);
+  imagenSeleccionada.value = imagenes[indiceAleatorio];
+  return imagenSeleccionada.value
+};
+
 const buscar = async () => {
   console.log(x);
-  const list = wordStore();
+  const list = useWordStore();
   const listWord= list.word
+  console.log("list word", listWord)
  
   for (let element of  listWord) {
     var x = Math.floor(Math.random() * 520);
@@ -40,6 +71,7 @@ const buscar = async () => {
         firstPhoto.value = response.data.hits[0].largeImageURL;
     })
     .catch(error => {
+      firstPhoto.value = seleccionarImagenAleatoria()
         console.log(error);
         foto.value= true;
     });
@@ -47,6 +79,7 @@ const buscar = async () => {
 
 onMounted(() => {
   buscar();
+  seleccionarImagenAleatoria();
 });
 </script>
 <template>

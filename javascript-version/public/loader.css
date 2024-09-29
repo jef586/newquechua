@@ -17,9 +17,14 @@ html {
 
 .loading-logo {
   position: absolute;
-  inset-block-start: 40%;
-  inset-inline-start: calc(50% - 45px);
+  inset: 50%; /* Centra verticalmente y horizontalmente */
+  transform: translate(-50%, -50%); /* Centra el contenido */
+  block-size: 150px !important; /* Ajusta el tamaño vertical con !important */
+  inline-size: 150px !important; /* Ajusta el tamaño horizontal con !important */
 }
+
+
+
 
 .loading {
   position: absolute;
@@ -32,7 +37,7 @@ html {
   inset-inline-start: calc(50% - 35px);
 }
 
-.loading .effect-1,
+/* .loading .effect-1,
 .loading .effect-2,
 .loading .effect-3 {
   position: absolute;
@@ -42,8 +47,8 @@ html {
   border-inline-start: 3px solid var(--initial-loader-color, #eee);
   border-radius: 50%;
   inline-size: 100%;
-}
-
+} */
+/* 
 .loading .effect-1 {
   animation: rotate 1s ease infinite;
 }
@@ -58,7 +63,7 @@ html {
 
 .loading .effects {
   transition: all 0.3s ease;
-}
+} */
 
 @keyframes rotate {
   0% {

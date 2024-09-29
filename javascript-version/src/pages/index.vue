@@ -1,145 +1,84 @@
-<script setup>
-// import AnalyticsAward from '@/views/dashboards/analytics/AnalyticsAward.vue'
-// import AnalyticsBarCharts from '@/views/dashboards/analytics/AnalyticsBarCharts.vue'
-// // import AnalyticsDatatable from '@/views/dashboards/analytics/AnalyticsDatatable.vue'
-// import AnalyticsDepositWithdraw from '@/views/dashboards/analytics/AnalyticsDepositWithdraw.vue'
-// import AnalyticsSalesByCountries from '@/views/dashboards/analytics/AnalyticsSalesByCountries.vue'
-// import AnalyticsTotalEarning from '@/views/dashboards/analytics/AnalyticsTotalEarning.vue'
-// import AnalyticsTotalProfitLineCharts from '@/views/dashboards/analytics/AnalyticsTotalProfitLineCharts.vue'
-// import AnalyticsTransactions from '@/views/dashboards/analytics/AnalyticsTransactions.vue'
-// import AnalyticsWeeklyOverview from '@/views/dashboards/analytics/AnalyticsWeeklyOverview.vue'
-// import CardStatisticsVertical from '@core/components/CardStatisticsVertical.vue'
-import montain from '@/assets/images/logos/montain.png'
-import logofinal from '@/assets/logofinal.svg?raw'
-import yachakuy from '@/assets/images/logos/yachakuy.png'  
-import { getAll }from '@/database.js'
-import wordStore from '@/store/index'
-import cardPalabra from '@/views/pages/components/cardPalabra.vue'
+<template>
+  <div class="home-container">
+    <section class="hero-section">
+      <!-- Imagen de fondo o destacada -->
+      <img src="@/assets/images/pages/quechua.webp" alt="Imagen destacada" class="hero-image">
+      <div class="text-container">
+        <h1 class="hero-title">¡Allin Jamusqas!</h1>
+        <!-- Logo centrado -->
+        <img src="@/assets/logo.png" alt="Logo Yachakuy" class="logo">
+        <h3 class="hero-subtitle">Tu portal interactivo para aprender Quechua Boliviano.</h3>
+      </div>
+    </section>
+  </div>
+</template>
 
-const store = wordStore();
-
-
-const getList= async ()=>{
-      let list= await getAll()
-      // this.wordList= list
-
-      store.addnewdata(list)
-      console.log(store.word)
-
-
-}
-getList()
-
-const totalProfit = {
-  title: 'Total Profit',
-  color: 'secondary',
-  icon: 'mdi-poll',
-  stats: '$25.6k',
-  change: 42,
-  subtitle: 'Weekly Project',
-}
-const newProject = {
-  title: 'New Project',
-  color: 'primary',
-  icon: 'mdi-briefcase-variant-outline',
-  stats: '862',
-  change: -18,
-  subtitle: 'Yearly Project',
+<script>
+export default {
+  name: 'HomePage',
 }
 </script>
 
-<template>
-  <VRow class="match-height">
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <!-- <AnalyticsAward /> -->
-      <!-- <div v-html="logo" /> -->
-      <!-- <cardPalabra /> -->
-      <div v-html="logofinal" />
-    </VCol>
+<style scoped>
+.home-container {
+  text-align: center;
+}
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <!-- <AnalyticsTransactions /> -->
-      <cardPalabra />
-    
-      <!-- <VImg :src="yachakuy" cover /> -->
-    
-      <!-- <img src="@/assets/images/logos/yachakuy.png" alt="logo" /> -->
+.hero-section {
+  position: relative;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
 
-    </VCol>
+.hero-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  opacity: 0.8;
+  object-fit: cover;
+  margin: 0 auto;
+}
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-  
-      <!-- <AnalyticsWeeklyOverview /> -->
-    </VCol>
+.text-container {
+  margin-top: 20px;
+}
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <!-- <AnalyticsTotalEarning /> -->
-    </VCol>
+.hero-title, .hero-subtitle {
+  transform: none;
+  font-size: 2em;
+  margin: 0;
+}
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <VRow class="match-height">
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <!-- <AnalyticsTotalProfitLineCharts /> -->
-          <h3>Aprenda Quechua Boliviano</h3>
-        </VCol>
+.logo {
+  width: 200px; /* Ajusta este valor según el tamaño deseado para tu logo */
+  height: auto;
+  display: block; /* Asegura que el logo sea un bloque para centrarlo */
+  margin: 20px auto; /* Espacio arriba y abajo, y auto para centrar horizontalmente */
+}
 
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <!-- <CardStatisticsVertical v-bind="totalProfit" /> -->
-        </VCol>
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.5em;
+  }
 
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <!-- <CardStatisticsVertical v-bind="newProject" /> -->
-        </VCol>
+  .hero-subtitle {
+    font-size: 1.2em;
+  }
+}
 
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <!-- <AnalyticsBarCharts /> -->
-        </VCol>
-      </VRow>
-    </VCol>
+@media (max-width: 480px) {
+  .hero-image {
+    max-width: 100%;
+  }
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <!-- <AnalyticsSalesByCountries /> -->
-    </VCol>
+  .hero-title {
+    font-size: 1.2em;
+  }
 
-    <VCol
-      cols="12"
-      md="8"
-    >
-      <!-- <AnalyticsDepositWithdraw /> -->
-    </VCol>
-
-    <!-- <VCol cols="12">
-      <AnalyticsDatatable />
-    </VCol> -->
-  </VRow>
-</template>
+  .hero-subtitle {
+    font-size: 1em;
+  }
+}
+</style>

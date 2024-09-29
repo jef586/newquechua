@@ -16,7 +16,8 @@ const upgradeBanner = computed(() => {
 </script>
 
 <template>
-  <!-- 👉 Nav header -->
+  <div>
+    <!-- 👉 Nav header -->
   <div class="nav-header">
     <RouterLink
       to="/"
@@ -53,53 +54,62 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'Diccionario',
         to: 'diccionario',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-book-open-blank-variant' }
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'Conjugador',
         to: 'conjugador',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-account-voice' }
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'Palabra del día',
         to: 'palabra',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-file-word-box' }
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'Sufijos',
         to: 'sufijo',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-access-point-plus' }
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'Traductor',
         to: 'traductor',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-translate' }
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'Frases comunes',
         to: 'frases',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-chat-outline' }
       }"
     />
     <VerticalNavLink
       :item="{
         title: 'Gramática',
         to: 'gramatica',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
+        icon: { icon: 'mdi-alphabetical' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Juegos',
+        to: 'juegos',
+        icon: { icon: 'mdi-controller' }
       }"
     />
    
   </ul>
+  </div>
+
 
 
 </template>

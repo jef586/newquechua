@@ -1,13 +1,37 @@
-import { setupLayouts } from 'virtual:generated-layouts'
-import { createRouter, createWebHistory } from 'vue-router'
-import routes from '~pages'
+import { setupLayouts } from 'virtual:generated-layouts';
+import { createRouter, createWebHistory } from 'vue-router';
+import generatedRoutes from '~pages';
+
+// Importa el componente de la página de inicio.
+import HomePage from '@/home/index.vue';
+
+// Define explícitamente la ruta de inicio y cualquier otra ruta estática si es necesario.
+const staticRoutes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage,
+  },
+  // Aquí puedes agregar más rutas estáticas si las tienes.
+];
+
+// Crea las rutas finales combinando las rutas estáticas con las generadas dinámicamente.
+const routes = [
+  ...staticRoutes,
+  ...setupLayouts(generatedRoutes),
+];
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    ...setupLayouts(routes),
-  ],
+  routes,
   scrollBehavior() {
-    return { top: 0 }
+    return { top: 0 };
   },
-})
-export default router
+});
+
+router.beforeEach((to, from, next) => {
+  document.body.style.overflow = 'auto';
+  next();
+});
+
+export default router;
