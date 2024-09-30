@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import pronunciacion from '@/assets/images/pages/pronunciacion.webp'
+import useWordStore from '@/store/index.js'
 
 const valid = ref(true)
 const verbo = ref('')
@@ -12,7 +13,8 @@ const verbRules = [
 
 const selectPron = ref(null)
 const selectVerb = ref(null)
-
+const filteredVerbs = ref([]);
+const wordStore = useWordStore();
 const pronombres = [
   {
     title: 'yo',
@@ -86,6 +88,32 @@ const tiempo = [
     value: 'y',
   },
 ]
+
+const onInput = (event) => {
+  const newVal = event.target.value; // Captura el valor del input directamente
+  if (typeof newVal !== 'string') {
+    console.warn('Valor no es un string:', newVal);
+    return;  // Si no es un string, no hacemos nada
+  }
+
+  console.log('Valor ingresado:', newVal);
+  const query = newVal.trim().toLowerCase();  // Aseguramos que la comparación sea en minúsculas
+  if (query.length >= 2) {
+    // Filtra las palabras que terminan con 'y'
+    const result = wordStore.allQuechuaWords.filter(quechuaWord => {
+      const wordLower = quechuaWord.toLowerCase();
+      console.log(`Revisando si ${wordLower} termina con 'y'`);
+      return wordLower.endsWith('y');
+    });
+    filteredVerbs.value = result;
+    console.log('Palabras que terminan con y:', filteredVerbs.value);
+  } else {
+    filteredVerbs.value = [];
+  }
+}
+
+
+
 
 // Filtrar pronombres solo para el Modo Imperativo
 const pronombresImperativo = ref(
@@ -276,14 +304,17 @@ const conjugar = () => {
         ref="form"
         v-model="valid"
         lazy-validation
-      >
-        <v-text-field
-          v-model="verbo"
+      >        
+        <v-autocomplete
+        v-model="verbo"
           :counter="10"
           :rules="verbRules"
           label="Escriba un verbo en infinitivo"
           required
-        ></v-text-field>
+          class="mb-3"
+          @input="onInput"
+          :items="filteredVerbs"
+        ></v-autocomplete>
 
         <v-select
           v-model="selectVerb"
@@ -314,9 +345,23 @@ const conjugar = () => {
         >
           Conjugar
         </v-btn>
-      </v-form>
-      <h2 class="text-h5 title--primary">{{ quechua }}</h2>
+      </v-form>      
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <h2 class="text-h5 title--primary quechua-output" v-on="on">{{ quechua }}</h2>
+        </template>
+        <span>{{ quechua }}</span>
+      </v-tooltip>
+
       <div class="title--primary">{{ espanol }}</div>
     </v-card-title>
   </v-card>
 </template>
+<style>
+.quechua-output {
+  max-width: 100%; /* Ajusta al máximo ancho del contenedor */
+  overflow-wrap: break-word; /* Asegura que las palabras largas se rompan y ajusten al contenedor */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es demasiado largo */
+  white-space: normal; /* Asegura que el espacio en blanco se maneje de manera normal, permitiendo saltos de línea */
+}
+</style>
