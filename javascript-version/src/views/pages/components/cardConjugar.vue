@@ -314,6 +314,7 @@ const conjugar = () => {
           class="mb-3"
           @input="onInput"
           :items="filteredVerbs"
+          no-data-text="Escriba un verbo en quechua"
         ></v-autocomplete>
 
         <v-select
